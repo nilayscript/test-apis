@@ -88,6 +88,20 @@ const employees = {
   },
 };
 
+app.get("/public-data", (req, res) => {
+  res.json({
+    schema: {
+      id: "number",
+      name: "string",
+      age: "number",
+      email: "string",
+      address: "string",
+      dob: "string (YYYY-MM-DD)",
+      mobile: "string",
+    },
+  });
+});
+
 app.get("/public-data/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const human = humans[id];
@@ -97,6 +111,17 @@ app.get("/public-data/:id", (req, res) => {
   } else {
     res.status(404).json({ error: "Human not found" });
   }
+});
+
+app.get("/employee", (req, res) => {
+  res.json({
+    schema: {
+      id: "number",
+      name: "string",
+      email: "string",
+      department: "string",
+    },
+  });
 });
 
 app.get("/employee/:id", (req, res) => {

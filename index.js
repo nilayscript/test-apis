@@ -91,6 +91,54 @@ const employees = {
   },
 };
 
+const tasks = {
+  1: {
+    taskNo: "1",
+    orderNo: "ORD-1001",
+    description: "Inspect Hydraulic Lines",
+    site: "NY-SITE-A",
+    woNo: "WO-70001",
+    maintOrgSite: "Maint-A",
+    maintOrg: "Aerospace Maintenance Group",
+  },
+  2: {
+    taskNo: "2",
+    orderNo: "ORD-1002",
+    description: "Replace Fuel Filter",
+    site: "CA-SITE-B",
+    woNo: "WO-70002",
+    maintOrgSite: "Maint-B",
+    maintOrg: "Aircraft Service Division",
+  },
+  3: {
+    taskNo: "3",
+    orderNo: "ORD-1003",
+    description: "Engine Oil Check",
+    site: "TX-SITE-C",
+    woNo: "WO-70003",
+    maintOrgSite: "Maint-C",
+    maintOrg: "Maintenance Operations Center",
+  },
+  4: {
+    taskNo: "4",
+    orderNo: "ORD-1004",
+    description: "Replace Brake Pads",
+    site: "FL-SITE-D",
+    woNo: "WO-70004",
+    maintOrgSite: "Maint-D",
+    maintOrg: "Repair & Maintenance Unit",
+  },
+  5: {
+    taskNo: "5",
+    orderNo: "ORD-1005",
+    description: "Landing Gear Inspection",
+    site: "WA-SITE-E",
+    woNo: "WO-70005",
+    maintOrgSite: "Maint-E",
+    maintOrg: "Aviation Maintenance Center",
+  },
+};
+
 app.get("/public-data", (req, res) => {
   res.json({
     schema: {
@@ -108,7 +156,6 @@ app.get("/public-data", (req, res) => {
 app.get("/public-data/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const human = humans[id];
-
   if (human) {
     res.json(human);
   } else {
@@ -130,11 +177,34 @@ app.get("/employee", (req, res) => {
 app.get("/employee/:id", (req, res) => {
   const id = parseInt(req.params.id);
   const employee = employees[id];
-
   if (employee) {
     res.json(employee);
   } else {
     res.status(404).json({ error: "Employee not found" });
+  }
+});
+
+app.get("/task", (req, res) => {
+  res.json({
+    schema: {
+      taskNo: "string",
+      orderNo: "string",
+      description: "string",
+      site: "string",
+      woNo: "string",
+      maintOrgSite: "string",
+      maintOrg: "string",
+    },
+  });
+});
+
+app.get("/task/:taskNo", (req, res) => {
+  const taskNo = req.params.taskNo;
+  const task = tasks[taskNo];
+  if (task) {
+    res.json(task);
+  } else {
+    res.status(404).json({ error: "Task not found" });
   }
 });
 
